@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "/home/muchogo/Documents/backend_basics/python/django/test/finalize/bin/python",
+    "python.linting.flake8Enabled": true,
+    "python.linting.pep8Enabled": false,
+    "python.linting.enabled": true
+}

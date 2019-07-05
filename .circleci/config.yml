@@ -1,29 +1,30 @@
 version: 2 
-jobs:
-  build:
 
-    working_directory: ~/circleci-demo-python-django
+jobs:
+  test:
+    working_directory: ~/app
     docker:
       - image: circleci/python:3.6.8
         environment:
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          DATABASE_URL: postgresql://muchogo@localhost/circle_test?sslmode=disable
       - image: circleci/postgres:9.6.2
         environment:
-          POSTGRES_USER: root
+          POSTGRES_USER: muchogo
+          POSTGRES_PASSWORD: letmein
           POSTGRES_DB: circle_test
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
       - restore_cache:
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
       - save_cache: # cache Python dependencies
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -33,3 +34,25 @@ jobs:
           command: |
             . venv/bin/activate
             coverage run --source='.' manage.py test
+            coverage report
+            coverage html
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: htmlcov
+
+  deploy:
+    steps:
+      - checkout
+      - run: docker test -t muchogo/django_web:v4 .
+      - run: docker login -u muchogo -p %X4$@62iLRza
+      - run: docker push muchogo/django_web:v4
+
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test

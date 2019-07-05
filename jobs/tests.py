@@ -13,7 +13,7 @@ class JobTest(TestCase):
         return Job.objects.create(image=image, summary=summary)
 
     # models test
-    def test_whatever_creation(self):
+    def test_job_creation(self):
         m = self.create_job()
         self.assertTrue(isinstance(m, Job))
         self.assertEqual(m.__str__(), m.summary)

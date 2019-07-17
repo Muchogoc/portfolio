@@ -8,10 +8,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '2@yercjcg!^jv0d7t2ox082s!^c!t*6vc8g1sv@@jlet%mn_i_')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '35.194.45.36', '18.219.55.177']
 
@@ -64,12 +64,12 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('SQL_ENGINE', 'django.db.backends.postgresql'),  # Database type
-        'NAME': os.environ.get('SQL_DATABASE', 'circle_test'),  # Database name
-        'USER': os.environ.get('SQL_USER', 'muchogo'),
-        'PASSWORD': os.environ.get('SQL_PASSWORD', 'letmein'),  # User password
-        'HOST': os.environ.get('SQL_HOST', 'localhost'),
-        'PORT': os.environ.get('SQL_PORT', '5432'),
+        'ENGINE': os.environ.get('SQL_ENGINE'),  # Database type
+        'NAME': os.environ.get('SQL_DATABASE'),  # Database name
+        'USER': os.environ.get('SQL_USER'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD'),  # User password
+        'HOST': os.environ.get('SQL_HOST'),
+        'PORT': os.environ.get('SQL_PORT'),
 
     }
 }

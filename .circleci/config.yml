@@ -40,19 +40,3 @@ jobs:
           path: test-results
       - store_artifacts:
           path: htmlcov
-
-  deploy:
-    steps:
-      - checkout
-      - run: docker test -t muchogo/django_web:v4 .
-      - run: docker login -u muchogo -p %X4$@62iLRza
-      - run: docker push muchogo/django_web:v4
-
-workflows:
-  version: 2
-  test-and-deploy:
-    jobs:
-      - test
-      - deploy:
-          requires:
-            - test

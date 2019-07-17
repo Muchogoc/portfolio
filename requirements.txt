@@ -1,6 +1,6 @@
 coverage==4.5.3
 defusedxml==0.4.1
-Django==2.2.2
+Django==2.2.3
 django-tastypie==0.9.15
 entrypoints==0.3
 flake8==3.7.7

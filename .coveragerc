@@ -1,7 +1,11 @@
-[report]
-show_missing = True
+[run]
+branch=True
+source=.
 omit = 
     manage.py
     config.py
     portfolio/wsgi.py
     venv*
+
+[report]
+show_missing = True

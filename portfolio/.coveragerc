@@ -1,0 +1,12 @@
+[run]
+branch=True
+source=.
+omit = 
+    portfolio/settings/*
+    portfolio/wsgi.py
+    jobs/migrations/*
+    venv*
+
+[report]
+show_missing=True
+omit = manage.py

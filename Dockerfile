@@ -16,10 +16,10 @@ RUN apk add --no-cache postgresql-dev
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt /usr/src/app/requirements.txt
+COPY ./requirements /usr/src/app/requirements
 RUN apk add --no-cache --virtual .build-deps build-base linux-headers \
     && pip install --upgrade pip \
-    && pip install -r requirements.txt \
+    && pip install -r requirements/production.txt \
     && apk del .build-deps
 
 # copy project

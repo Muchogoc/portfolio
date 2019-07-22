@@ -1,0 +1,13 @@
+---
+- name: Make migrations
+  django_manage:
+    app_path: "{{ app_dir }}"
+    command: "makemigrations --noinput"
+    virtualenv: "{{ venv_dir }}"
+  become: yes
+
+- name: Migrate database
+  django_manage:
+    app_path: "{{ app_dir }}"
+    command: migrate
+    virtualenv: "{{ venv_dir }}"

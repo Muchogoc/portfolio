@@ -105,3 +105,6 @@ venv.bak/
 
 # additions
 .vscode
+all
+hosts
+templates/

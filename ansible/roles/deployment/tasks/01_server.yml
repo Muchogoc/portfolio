@@ -1,0 +1,49 @@
+---
+- name: Add group "muchogo" to remote server
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  group:
+    name: muchogo
+    state: present
+
+- name: Add user "muchogo" to the remote server
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  user:
+    name: muchogo
+    comment: "Deploy user"
+    group: muchogo
+    groups: adm,sudo
+    append: yes
+    create_home: no
+
+- name: Upgrade all packages to the latest version
+  become: yes
+  apt:
+    name: "*"
+    state: latest
+
+- name: Install PostgreSQL
+  apt:
+    name: "{{ packages }}"
+    update_cache: true
+    state: present
+  vars:
+    packages:
+      - python3-pip
+      - build-essential
+      - libssl-dev
+      - libffi-dev
+      - python3-dev
+      - python3-venv
+  become: yes
+
+- name: create web directory
+  become: yes
+  file:
+    path: /home/ubuntu/muchogo/portfolio
+    state: directory
+    owner: muchogo
+    recurse: yes

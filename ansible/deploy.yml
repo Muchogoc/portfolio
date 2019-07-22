@@ -1,0 +1,9 @@
+##
+# This playbook deploys the whole app stack
+##
+- name: apply configuration to server
+  hosts: web
+  any_errors_fatal: true
+  gather_facts: False
+  roles:
+    - deployment

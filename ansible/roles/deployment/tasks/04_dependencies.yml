@@ -1,0 +1,30 @@
+---
+- name: Create a virtualenv directory
+  file:
+    path: "{{ venv_dir }}"
+    state: directory
+
+
+- name: Install setup tools
+  pip:
+    name: setuptools
+    executable: pip3
+
+- name: Install virtualenv via pip
+  pip:
+    name: virtualenv
+    executable: pip3
+  become: yes
+  become_user: root
+
+- name: Install dependencies
+  pip:
+    requirements: "{{ app_dir }}/requirements/production.txt"
+    virtualenv: "{{ venv_dir }}"
+    virtualenv_python: python3.6
+
+- name: Create the .env file for running ad-hoc python commands in our virtualenv
+  template:
+    src: env.j2
+    dest: "{{ app_dir }}/.env"
+  become: yes

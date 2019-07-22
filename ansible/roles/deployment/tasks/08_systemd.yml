@@ -1,0 +1,9 @@
+---
+- name: write a systemd service file
+  template:
+    src: portfolio.service
+    dest: /etc/systemd/system
+  become: yes
+  notify:
+    - restart app
+    - restart nginx

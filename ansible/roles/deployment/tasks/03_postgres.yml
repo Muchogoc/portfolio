@@ -29,7 +29,7 @@
     template: template0
     state: present
 
-- name: create user and give access
+- name: Create user and give access
   become: yes
   become_user: postgres
   postgresql_user:

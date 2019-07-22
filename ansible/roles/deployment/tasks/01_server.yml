@@ -25,7 +25,7 @@
     name: "*"
     state: latest
 
-- name: Install PostgreSQL
+- name: Install Required packages
   apt:
     name: "{{ packages }}"
     update_cache: true

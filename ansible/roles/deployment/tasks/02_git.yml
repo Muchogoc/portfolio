@@ -5,7 +5,7 @@
     state: latest
   become: yes
 
-- name: Clone or pull the latest code
+- name: Clone/pull the latest code
   become: yes
   become_user: "{{ deployer_user }}"
   git:

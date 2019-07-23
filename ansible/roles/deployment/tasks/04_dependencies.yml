@@ -23,8 +23,15 @@
     virtualenv: "{{ venv_dir }}"
     virtualenv_python: python3.6
 
-- name: Create the .env file for running ad-hoc python commands in our virtualenv
+- name: Create the environment variables bash file
   template:
     src: env.j2
-    dest: "{{ app_dir }}/.env"
+    dest: "{{ app_dir }}/env.sh"
+  become: yes
+  become_user: "{{ deployer_user }}"
+
+- name: Make the script executable
+  file:
+    dest: "{{ app_dir }}/env.sh"
+    mode: a+x
   become: yes

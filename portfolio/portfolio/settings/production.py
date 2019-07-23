@@ -1,6 +1,5 @@
 from .base import *
 
-import environ
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -9,13 +8,10 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()]
 )
 
-env = environ.Env()
 
-env.read_env(os.path.join(ROOT_DIR, '.env'))
+DEBUG = DEBUG = os.environ.get('DEBUG', default=False)
 
-DEBUG = False
-
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '35.194.45.36', '18.219.55.177']
 
@@ -31,12 +27,12 @@ PROMETHEUS_EXPORT_MIGRATIONS = False
 
 DATABASES = {
     'default': {
-        'ENGINE': env('SQL_ENGINE'),
-        'NAME': env('SQL_DATABASE'),
-        'USER': env('SQL_USER'),
-        'PASSWORD': env('SQL_PASSWORD'),
-        'HOST': env('SQL_HOST'),
-        'PORT': env('SQL_PORT'),
+        'ENGINE': os.environ.get('SQL_ENGINE'),
+        'NAME': os.environ.get('SQL_DATABASE'),
+        'USER': os.environ.get('SQL_USER'),
+        'PASSWORD': os.environ.get('SQL_PASSWORD'),
+        'HOST': os.environ.get('SQL_HOST'),
+        'PORT': os.environ.get('SQL_PORT'),
 
     }
 }

@@ -1,7 +1,7 @@
 version: 2 
 
 jobs:
-  build:
+  test:
     working_directory: ~/app
     docker:
       - image: circleci/python:3.6.8
@@ -49,3 +49,40 @@ jobs:
           path: test-results
       - store_artifacts:
           path: htmlcov
+  
+  publish:
+    docker:
+      - image: circleci/python:3.6.8
+    steps:
+      - checkout
+      -  run:
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements/local.txt
+      - run:
+          name: Create .pypirc
+          command: |
+            echo -e "[disutils]"
+            echo -e "index-servers = pypi"
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = $PYPI_USERNAME" >> ~/.pypirc
+            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
+      - run:
+          name: create packages
+          command: |
+            python3 setup.py sdist bdist_wheel
+      - run:
+          name: upload to pypi
+          command: |
+            . venv/bin/activate
+            twine upload dist/*
+
+workflows:
+  version: 2
+  test_and_publish:
+    jobs:
+      - test
+      - publish:
+          requires:
+            - test

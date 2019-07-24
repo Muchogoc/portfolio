@@ -23,11 +23,7 @@
     virtualenv: "{{ venv_dir }}"
     virtualenv_python: python3.6
 
-<<<<<<< HEAD
-- name: Create the environment variables bash file
-=======
 - name: Create the env bash script
->>>>>>> 94714aa... Added publish to circleCI
   template:
     src: env.j2
     dest: "{{ app_dir }}/env.sh"
@@ -38,9 +34,6 @@
   file:
     dest: "{{ app_dir }}/env.sh"
     mode: a+x
-<<<<<<< HEAD
-  become: yes
-=======
   become: yes
 
 # - name: Execute the script
@@ -49,4 +42,3 @@
 #   become_user: root
 #   args:
 #     chdir: /home/ubuntu/muchogo/portfolio
->>>>>>> 94714aa... Added publish to circleCI

@@ -1,0 +1,4 @@
+include README.md
+recursive-include portfolio/static *
+recursive-include portfolio/jobs/static *
+recursive-include portfolio/jobs/templates *

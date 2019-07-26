@@ -10,13 +10,11 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()]
 )
 
-env = environ.Env(
-    DEBUG=(bool, False)
-)
+env = environ.Env()
 environ.Env.read_env(os.path.join(ROOT_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = env('DEBUG')
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 

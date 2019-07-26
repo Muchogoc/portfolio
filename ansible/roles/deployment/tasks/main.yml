@@ -3,6 +3,5 @@
 - include: 03_postgres.yml
 - include: 04_dependencies.yml
 - include: 05_migrations.yml
-- include: 06_nginx.yml
-- include: 07_gunicorn.yml
-- include: 08_systemd.yml
+- include: 06_gunicorn.yml
+- include: 07_nginx.yml

@@ -1,0 +1,35 @@
+---
+- name: create gunickorn socket file
+  template:
+    src: portfolio.socket
+    dest: /etc/systemd/system/
+  become: yes
+
+- name: create portfolio service file
+  template:
+    src: portfolio.service
+    dest: /etc/systemd/system/
+  become: yes
+
+- name: systemd reread configs 
+  systemd:
+    daemon_reload: yes
+  become: yes
+
+- name: Create gunicorn socket
+  systemd:
+    state: started
+    name: portfolio.socket
+  become: yes
+
+- name: Enable portfolio.socket
+  systemd:
+    name: portfolio.socket
+    enabled: yes
+  become: yes
+
+- name: enable portfolio service
+  systemd:
+    name: portfolio
+    enabled: yes
+  become: yes

@@ -4,6 +4,7 @@
     path: "{{ deploy_dir }}"
     state: directory
   become: yes
+  become_user: "{{ deployer_user }}"
 
 - name: Gunicorn_start script
   template:

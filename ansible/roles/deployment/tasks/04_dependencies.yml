@@ -3,6 +3,8 @@
   file:
     path: "{{ venv_dir }}"
     state: directory
+  become: yes
+  become_user: "{{ deployer_user }}"
 
 
 - name: Install setup tools
@@ -15,7 +17,7 @@
     name: virtualenv
     executable: pip3
   become: yes
-  become_user: root
+  become_user: "{{ deployer_user }}"
 
 - name: Install dependencies
   pip:

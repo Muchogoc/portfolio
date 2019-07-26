@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
   group:
-    name: muchogo
+    name: "{{ deployer_group }}"
     state: present
 
 - name: Add user "muchogo" to the remote server
@@ -12,9 +12,9 @@
   become: yes
   become_method: sudo
   user:
-    name: muchogo
+    name: "{{ deployer_user }}"
     comment: "Deploy user"
-    group: muchogo
+    group: "{{ deployer_group }}"
     groups: adm,sudo
     append: yes
     create_home: no
@@ -45,5 +45,5 @@
   file:
     path: /home/ubuntu/muchogo/portfolio
     state: directory
-    owner: muchogo
+    owner: "{{ deployer_user }}"
     recurse: yes

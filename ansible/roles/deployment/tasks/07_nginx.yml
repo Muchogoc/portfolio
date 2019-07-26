@@ -1,0 +1,21 @@
+---
+- name: Install nginx
+  apt:
+   name: nginx
+   state: latest
+  become: yes
+
+- name: copy the nginx config file
+  template:
+    src: portfolio
+    dest: /etc/nginx/sites-available/
+  become: yes
+
+- name: create symlink
+  file:
+    src: /etc/nginx/sites-available/portfolio
+    dest: /etc/nginx/sites-enabled/default
+    state: link
+  become: yes
+  notify:
+    - restart nginx

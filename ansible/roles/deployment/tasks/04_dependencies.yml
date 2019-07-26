@@ -17,13 +17,15 @@
     name: virtualenv
     executable: pip3
   become: yes
-  become_user: "{{ deployer_user }}"
+  become_user: root
 
 - name: Install dependencies
   pip:
     requirements: "{{ app_dir }}/requirements/production.txt"
     virtualenv: "{{ venv_dir }}"
     virtualenv_python: python3.6
+  become: yes
+  become_user: "{{ deployer_user }}"
 
 - name: Create the env file
   template:

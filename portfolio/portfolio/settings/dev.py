@@ -18,7 +18,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = True
 
 # ALLOWED_HOSTS = [env.list('ALLOWED_HOSTS', cast=None)]
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '52.14.224.154']
+ALLOWED_HOSTS = ['*']
 
 PROMETHEUS_EXPORT_MIGRATIONS = False
 

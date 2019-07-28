@@ -16,7 +16,7 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = [env.list('ALLOWED_HOSTS', cast=None)]
 
 
 PROMETHEUS_EXPORT_MIGRATIONS = False

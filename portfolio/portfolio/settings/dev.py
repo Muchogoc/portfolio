@@ -14,10 +14,11 @@ env = environ.Env()
 environ.Env.read_env(os.path.join(ROOT_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = env.bool('DEBUG')
+# DEBUG = env.bool('DEBUG')
+DEBUG = True
 
-ALLOWED_HOSTS = [env.list('ALLOWED_HOSTS', cast=None)]
-
+# ALLOWED_HOSTS = [env.list('ALLOWED_HOSTS', cast=None)]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '52.14.224.154']
 
 PROMETHEUS_EXPORT_MIGRATIONS = False
 

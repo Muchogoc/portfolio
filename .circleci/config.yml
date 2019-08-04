@@ -84,7 +84,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "e4:95:d6:77:f5:87:0e:fa:0e:e8:26:ab:32:40:95:42"
+            - $KEY
       - checkout
       - run:
           command: |
@@ -96,6 +96,10 @@ jobs:
           command: |
             . venv/bin/activate
             cd ansible
+            echo -e "[web]" >> hosts
+            echo -e "$REMOTE ansible_user=$REMOTE_USER" >> hosts
+            echo -e "[web:vars]" >> hosts
+            echo -e "ansible_python_interpreter=/usr/bin/python3" >> hosts
             ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts deploy.yml
 
 workflows:

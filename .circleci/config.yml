@@ -84,24 +84,23 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "$kEY"
+            - $KEY
       - checkout
       - run:
-          name: Install ansible
           command: |
-            pip install ansible --user
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install ansible
       - run:
-          name: Create hosts
+          name: Create hosts and run playbook
           command: |
-            echo -e "[web]" >> ~/ansible/hosts
-            echo -e "mashdem.ml ansible_user=ubuntu" >> ~/ansible/hosts
-            echo -e "[web:vars]" >> ~/.pypirc
-            echo -e "ansible_python_interpreter=/usr/bin/python3" >> ~/ansible/hosts    
-      - run:
-          name: Run Playbook
-          command: |
-           cd ansible
-           ansible-playbook -i hosts deploy.yml
+            . venv/bin/activate
+            cd ansible
+            echo -e "[web]" >> hosts
+            echo -e "$REMOTE ansible_user=$REMOTE_USER" >> hosts
+            echo -e "[web:vars]" >> hosts
+            echo -e "ansible_python_interpreter=/usr/bin/python3" >> hosts
+            ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts deploy.yml
 
 workflows:
   version: 2

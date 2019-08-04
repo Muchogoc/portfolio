@@ -1,17 +1,16 @@
 ---
 - hosts: web
   gather_facts: false
-  become: True
-  become_user: muchoog
+  become: yes
 
   tasks:
     - name: Clone/pull the latest code
       git:
-        repo: "https://muchogoc@gmail.com:ujXKvcT8fvz3@github.com/Muchogoc/portfolio.git"
-        dest: "{{ app_dir }}"
+        repo: "https://7a99566275fd60e4182b1257bd77e6f14a69c968@github.com/Muchogoc/portfolio.git"
+        dest: /home/ubuntu/muchogo/portfolio
+      become_user: muchogo
     
     - name: restart app
       service:
         name: portfolio
         state: restarted
-        enabled: yes

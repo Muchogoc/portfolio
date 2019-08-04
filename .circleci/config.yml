@@ -84,7 +84,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "$KEY"
+            - "45:15:ab:36:82:df:e0:37:d5:ec:f3:27:70:27:da:61:a9:84:1d:33"
       - checkout
       - run:
           command: |

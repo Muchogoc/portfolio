@@ -96,12 +96,7 @@ jobs:
           command: |
             . venv/bin/activate
             cd ansible
-            echo -e "[web]" >> hosts
-            echo -e "mashdem.ml ansible_user=ubuntu" >> hosts
-            echo -e "[web:vars]" >> hosts
-            echo -e "ansible_python_interpreter=/usr/bin/python3" >> hosts
-            ansible all -m ping -vvv
-            # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts deploy.yml
+            ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts deploy.yml
 
 workflows:
   version: 2

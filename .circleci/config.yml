@@ -89,30 +89,26 @@ jobs:
       - run:
           name: Install ansible
           command: |
-            pip install ansible --user
+            pip install --user ansible
       - run:
-          name: Create hosts
+          name: Create hosts and run playbook
           command: |
             cd ansible
             echo -e "[web]" >> hosts
             echo -e "mashdem.ml ansible_user=ubuntu" >> hosts
             echo -e "[web:vars]" >> hosts
-            echo -e "ansible_python_interpreter=/usr/bin/python3" >> hosts    
-      - run:
-          name: Run Playbook
-          command: |
-           cd ansible
-           ansible-playbook -i hosts deploy.yml
+            echo -e "ansible_python_interpreter=/usr/bin/python3" >> hosts
+            ansible-playbook -i hosts deploy.yml
 
 workflows:
   version: 2
   test-and-approval-publish-and-approval-deploy:
     jobs:
-      - test
-      - hold:
-          type: approval
-          requires:
-            - test
+      # - test
+      # - hold:
+      #     type: approval
+      #     requires:
+      #       - test
       # - publish:
       #     requires:
       #       - hold
@@ -120,8 +116,8 @@ workflows:
       #       branches:
       #         only: master
       - deploy:
-          requires:
-            - hold
+          # requires:
+          #   - hold
           # filters:
           #   branches:
           #     only: master

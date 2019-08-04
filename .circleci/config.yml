@@ -84,7 +84,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "$kEY"
+            - "$KEY"
       - checkout
       - run:
           command: |

@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages, setup
 
 # circleci.py version
-VERSION = "1.1.2"
+VERSION = "1.1.3"
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()

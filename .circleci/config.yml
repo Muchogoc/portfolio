@@ -89,7 +89,7 @@ jobs:
       - run:
           name: Install ansible
           command: |
-            pip install ansible
+            pip install ansible --user
       - run:
           name: Create hosts
           command: |

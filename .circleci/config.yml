@@ -106,20 +106,20 @@ workflows:
   version: 2
   test-and-approval-publish-and-approval-deploy:
     jobs:
-      # - test
-      # - hold:
-      #     type: approval
-      #     requires:
-      #       - test
-      # - publish:
-      #     requires:
-      #       - hold
-      #     filters:
-      #       branches:
-      #         only: master
-      - deploy
-          # requires:
-          #   - hold
-          # filters:
-          #   branches:
-          #     only: master
+      - test
+      - hold:
+          type: approval
+          requires:
+            - test
+      - publish:
+          requires:
+            - hold
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - hold
+          filters:
+            branches:
+              only: master

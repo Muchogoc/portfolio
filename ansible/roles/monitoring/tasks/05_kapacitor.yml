@@ -1,0 +1,22 @@
+---
+- name: install kapacitor
+  apt: 
+    name: kapacitor
+    state: present
+  become: yes
+
+- name: copy the kapacitor config file
+  file:
+    src: kapacitor
+    dest: /etc/kapacitor/kapacitor.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+
+- name: Start kapacitor service
+  systemd:
+    state: started
+    name: kapacitor
+  become: yes

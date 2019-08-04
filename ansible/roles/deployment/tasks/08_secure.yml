@@ -1,0 +1,65 @@
+- name: add certbot apt repository
+  apt_repository: 
+    repo: ppa:certbot/certbot
+    state: present 
+    update_cache: yes
+  become: yes
+
+- name: install nginx certbot
+  apt: 
+    name: python-certbot-nginx
+    state: present
+  become: yes
+
+- name: Allow OpenSSH
+  ufw:
+    rule: allow
+    name: OpenSSH
+  become: yes
+
+- name: Allow Nginx HTTPS
+  ufw:
+    rule: allow
+    name: Nginx HTTPS
+  become: yes
+
+- name: Allow ssh
+  ufw:
+    rule: allow
+    port: ssh
+  become: yes
+
+- name: Allow http
+  ufw:
+    rule: allow
+    port: http
+  become: yes
+
+- name: enable UFW
+  ufw:
+    state: enabled
+  become: yes
+
+- name: chcek if https cert already exist
+  stat:
+    path: /etc/letsencrypt/live/muchogo.ml/fullchain.pem
+  register: cert_stats
+  become: yes
+  become_user: root
+
+- name: stop nginx
+  service:
+    name: nginx
+    state: stopped
+  become: yes
+
+- name: Obtain SSL certificate
+  shell: "certbot --nginx --noninteractive --agree-tos --email muchogoc@gmail.com -d mashdem.ml -d www.mashdem.ml"
+  become: yes
+  when: cert_stats.stat.exists == False
+
+- name: start nginx
+  service:
+    name: nginx
+    state: started
+  become: yes

@@ -1,0 +1,18 @@
+---
+- name: Install chronograf.
+  apt:
+    deb: https://dl.influxdata.com/chronograf/releases/chronograf_1.7.12_amd64.deb
+  become: yes
+
+- name: Allow connections port 8888
+  ufw:
+    rule: allow
+    port: '8888'
+    proto: tcp
+  become: yes
+
+- name: Start chronograf service
+  systemd:
+    state: started
+    name: chronograf
+  become: yes

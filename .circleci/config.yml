@@ -115,7 +115,7 @@ workflows:
       #     filters:
       #       branches:
       #         only: master
-      - deploy:
+      - deploy
           # requires:
           #   - hold
           # filters:

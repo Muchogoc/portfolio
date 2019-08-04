@@ -93,10 +93,11 @@ jobs:
       - run:
           name: Create hosts
           command: |
-            echo -e "[web]" >> ~/ansible/hosts
-            echo -e "mashdem.ml ansible_user=ubuntu" >> ~/ansible/hosts
-            echo -e "[web:vars]" >> ~/.pypirc
-            echo -e "ansible_python_interpreter=/usr/bin/python3" >> ~/ansible/hosts    
+            cd ansible
+            echo -e "[web]" >> hosts
+            echo -e "mashdem.ml ansible_user=ubuntu" >> hosts
+            echo -e "[web:vars]" >> hosts
+            echo -e "ansible_python_interpreter=/usr/bin/python3" >> hosts    
       - run:
           name: Run Playbook
           command: |
@@ -112,15 +113,15 @@ workflows:
           type: approval
           requires:
             - test
-      - publish:
-          requires:
-            - hold
-          filters:
-            branches:
-              only: master
+      # - publish:
+      #     requires:
+      #       - hold
+      #     filters:
+      #       branches:
+      #         only: master
       - deploy:
           requires:
             - hold
-          filters:
-            branches:
-              only: master
+          # filters:
+          #   branches:
+          #     only: master

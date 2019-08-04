@@ -100,7 +100,7 @@ jobs:
             echo -e "mashdem.ml ansible_user=ubuntu" >> hosts
             echo -e "[web:vars]" >> hosts
             echo -e "ansible_python_interpreter=/usr/bin/python3" >> hosts
-            ansible -m ping hosts -vvv
+            ansible -m ping -i hosts -vvv
             # ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i hosts deploy.yml
 
 workflows:

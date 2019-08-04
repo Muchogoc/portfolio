@@ -12,5 +12,5 @@
     
     - name: restart app
       service:
-        name: portfolio.socket
+        name: portfolio
         state: restarted

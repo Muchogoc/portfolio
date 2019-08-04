@@ -1,9 +1,17 @@
-##
-# This playbook deploys the whole app stack
-##
-- name: apply configuration to server
-  hosts: web
-  any_errors_fatal: true
-  gather_facts: False
-  roles:
-    - deployment
+---
+- hosts: web
+  gather_facts: false
+  become: True
+  become_user: muchoog
+
+  tasks:
+    - name: Clone/pull the latest code
+      git:
+        repo: "https://muchogoc@gmail.com:ujXKvcT8fvz3@github.com/Muchogoc/portfolio.git"
+        dest: "{{ app_dir }}"
+    
+    - name: restart app
+      service:
+        name: portfolio
+        state: restarted
+        enabled: yes

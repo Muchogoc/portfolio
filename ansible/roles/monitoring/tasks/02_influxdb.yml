@@ -1,0 +1,51 @@
+---
+- name: Install InfluxDB
+  apt: 
+    name: influxdb
+    state: present
+  become: yes
+
+- name: Start InfluxDB
+  systemd:
+    state: started
+    name: influxdb
+  become: yes
+
+- name: Install influxdb python module
+  pip:
+    name: influxdb
+    executable: pip3
+
+- name: Create a user on localhost using default login credentials
+  influxdb_user:
+    user_name: "{{influxdb_username}}"
+    user_password: "{{influxdb_password}}"
+    admin: yes
+
+
+- name: Create database using custom credentials
+  influxdb_database:
+      hostname: "localhost"
+      username: "{{influxdb_username}}"
+      password: "{{influxdb_password}}"
+      database_name: "{{influxdb_database_name}}"
+
+- name: copy the influxdb config file
+  file:
+    src: influxdb
+    dest: /etc/influxdb/influxdb.conf
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+
+- name: copy the influxdb config file
+  file:
+    src: influxdb
+    dest: /etc/influxdb/influxdb.conf
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  notify:
+    - restart influxdb

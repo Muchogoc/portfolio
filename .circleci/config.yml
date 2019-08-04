@@ -63,8 +63,8 @@ jobs:
       - run:
           name: Create .pypirc
           command: |
-            echo -e "[disutils]"
-            echo -e "index-servers = pypi"
+            echo -e "[disutils]" >> ~/.pypirc
+            echo -e "index-servers = pypi" >> ~/.pypirc
             echo -e "[pypi]" >> ~/.pypirc
             echo -e "username = $PYPI_USERNAME" >> ~/.pypirc
             echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
@@ -77,15 +77,50 @@ jobs:
           command: |
             . venv/bin/activate
             twine upload dist/*
+  
+  deploy:
+    docker:
+      - image: circleci/python:3.6.8
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "$kEY"
+      - checkout
+      - run:
+          name: Install ansible
+          command: |
+            pip install ansible
+      - run:
+          name: Create hosts
+          command: |
+            echo -e "[web]" >> ~/ansible/hosts
+            echo -e "mashdem.ml ansible_user=ubuntu" >> ~/ansible/hosts
+            echo -e "[web:vars]" >> ~/.pypirc
+            echo -e "ansible_python_interpreter=/usr/bin/python3" >> ~/ansible/hosts    
+      - run:
+          name: Run Playbook
+          command: |
+           cd ansible
+           ansible-playbook -i hosts deploy.yml
 
 workflows:
   version: 2
-  test_and_publish:
+  test-and-approval-publish-and-approval-deploy:
     jobs:
       - test
-      - publish:
+      - hold:
+          type: approval
           requires:
             - test
+      - publish:
+          requires:
+            - hold
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - hold
           filters:
             branches:
               only: master

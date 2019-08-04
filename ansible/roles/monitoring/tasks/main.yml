@@ -1,0 +1,6 @@
+- import_tasks: 01_server.yml
+- import_tasks: 02_influxdb.yml
+- import_tasks: 03_telegraf.yml
+- import_tasks: 04_chronograf.yml
+- import_tasks: 05_kapacitor.yml
+- import_tasks: 06_promethius.yml

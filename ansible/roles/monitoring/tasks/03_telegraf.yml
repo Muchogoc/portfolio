@@ -1,0 +1,17 @@
+---
+- name: install telegraf
+  apt: 
+    name: telegraf
+    state: present
+  become: yes
+
+- name: copy the telegraf config file
+  file:
+    src: telegraf
+    dest: /etc/telegraf/telegraf.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+  notify:
+    - restart telegraf

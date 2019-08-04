@@ -1,7 +1,8 @@
-- include: 01_server.yml
-- include: 02_git.yml
-- include: 03_postgres.yml
-- include: 04_dependencies.yml
-- include: 05_migrations.yml
-- include: 06_gunicorn.yml
-- include: 07_nginx.yml
+- import_tasks: 01_server.yml
+- import_tasks: 02_git.yml
+- import_tasks: 03_postgres.yml
+- import_tasks: 04_dependencies.yml
+- import_tasks: 05_migrations.yml
+- import_tasks: 06_gunicorn.yml
+- import_tasks: 07_nginx.yml
+- import_tasks: 08_secure.yml

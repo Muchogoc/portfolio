@@ -40,9 +40,9 @@
     state: enabled
   become: yes
 
-- name: chcek if https cert already exist
+- name: check if https cert already exist
   stat:
-    path: /etc/letsencrypt/live/muchogo.ml/fullchain.pem
+    path: /etc/letsencrypt/live/muchogo.tk/fullchain.pem
   register: cert_stats
   become: yes
   become_user: root
@@ -54,9 +54,13 @@
   become: yes
 
 - name: Obtain SSL certificate
-  shell: "certbot --nginx --noninteractive --agree-tos --email muchogoc@gmail.com -d mashdem.ml -d www.mashdem.ml"
+  shell: "certbot --nginx --noninteractive --agree-tos --email muchogoc@gmail.com -d muchogo.tk -d www.muchogo.tk"
   become: yes
   when: cert_stats.stat.exists == False
+
+- name: free port 80
+  command: fuser -k 80/tcp
+  become: yes
 
 - name: start nginx
   service:

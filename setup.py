@@ -30,7 +30,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     install_requires=[
-        "Django==2.2.8",
+        "Django==3.0.14",
         "django-environ==0.4.5",
         "django-tastypie==0.9.15",
         "Pillow==6.0.0",

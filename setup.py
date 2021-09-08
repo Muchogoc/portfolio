@@ -33,7 +33,7 @@ setup(
         "Django==2.2.8",
         "django-environ==0.4.5",
         "django-tastypie==0.9.15",
-        "Pillow==6.0.0",
+        "Pillow==8.3.2",
         "psycopg2==2.8.3",
         "setproctitle==1.1.10",
         "django-prometheus==1.0.15",
